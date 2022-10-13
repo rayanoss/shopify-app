@@ -52,12 +52,14 @@ export default defineConfig({
     preserveSymlinks: true,
   },
   server: {
-    host: "localhost",
+    host: process.env.SHOPIFY_VITE_HMR_USE_WSS ? "0.0.0.0" : "localhost",
     port: process.env.FRONTEND_PORT,
     hmr: hmrConfig,
     proxy: {
       "^/(\\?.*)?$": proxyOptions,
       "^/api(/|(\\?.*)?$)": proxyOptions,
+      "^/qrcodes/[0-9]+/image(\\?.*)?$": proxyOptions,
+      "^/qrcodes/[0-9]+/scan(\\?.*)?$": proxyOptions,
     },
-  },
+  },  
 });
